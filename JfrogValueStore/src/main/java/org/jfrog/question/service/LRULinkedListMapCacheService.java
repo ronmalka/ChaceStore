@@ -55,7 +55,8 @@ public class LRULinkedListMapCacheService<T, E> implements CacheService<T, E> {
             total++;
 
             if (total > capacity) {
-                LRUItemEvictions();
+                //LRU Item Evictions
+                delete(tail.prev);
             }
         } else {
             node.value = value;
@@ -75,12 +76,6 @@ public class LRULinkedListMapCacheService<T, E> implements CacheService<T, E> {
         removeNode(node);
         cache.remove(node.key);
         total--;
-    }
-
-
-    private void LRUItemEvictions() {
-        Node<T, E> tail = getLRUNode();
-        delete(tail);
     }
 
     private void reinsertNode(Node<T, E> node) {
@@ -104,10 +99,6 @@ public class LRULinkedListMapCacheService<T, E> implements CacheService<T, E> {
 
         node.next = null;
         node.prev = null;
-    }
-
-    private Node<T, E> getLRUNode() {
-        return tail.prev;
     }
 
     @Override
