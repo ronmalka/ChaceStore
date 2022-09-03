@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.jfrog.question.CachedValueStoreTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-03T15:30:58" hostname="DESKTOP-3Q2RVGS" time="0.021">
+<testsuite name="org.jfrog.question.CachedValueStoreTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-09-03T15:42:50" hostname="DESKTOP-3Q2RVGS" time="0.026">
   <properties/>
-  <testcase name="testCaseOneWithLinkedHashMap()" classname="org.jfrog.question.CachedValueStoreTest" time="0.021"/>
+  <testcase name="testLru()" classname="org.jfrog.question.CachedValueStoreTest" time="0.019"/>
+  <testcase name="testPut()" classname="org.jfrog.question.CachedValueStoreTest" time="0.001"/>
+  <testcase name="testCache()" classname="org.jfrog.question.CachedValueStoreTest" time="0.001"/>
+  <testcase name="testCaseOne()" classname="org.jfrog.question.CachedValueStoreTest" time="0.001"/>
+  <testcase name="testCaseTwo()" classname="org.jfrog.question.CachedValueStoreTest" time="0.001"/>
+  <testcase name="testCaseOneWithLinkedHashMap()" classname="org.jfrog.question.CachedValueStoreTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
