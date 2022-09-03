@@ -136,4 +136,24 @@ class CachedValueStoreTest {
         assertEquals("{1=d, 2=e}", cache.toString());
 
     }
+
+    @Test
+    void testCaseTwoWithLinkedHashMap() throws IOException {
+        File inputFile = Files.createTempFile("a", ".txt").toFile();
+        inputFile.deleteOnExit();
+        ValueStore mapStore = new FileValueStore(inputFile);
+        ValueStore[] stores = new ValueStore[]{mapStore};
+        LRULinkedHashMapCacheService<String, String> lruLinkedHashMapCacheService = new LRULinkedHashMapCacheService<>(2);
+        CachedValueStore cache = new CachedValueStore(Arrays.asList(stores), lruLinkedHashMapCacheService);
+        cache.put("1", "a");
+        cache.put("2", "b");
+        cache.put("3", "c");
+        cache.read("3");
+        cache.read("1");
+        cache.delete("2");
+        cache.put("1", "d");
+        cache.put("2", "e");
+
+        assertEquals("{1=d, 2=e}", cache.toString());
+    }
 }
