@@ -3,11 +3,11 @@ package org.jfrog.question.service;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
-    protected Map<T,Node<T,E>> cache;
+public class LRULinkedListMapCacheService<T, E> implements CacheService<T, E> {
+    private final Node<T, E> head;
+    private final Node<T, E> tail;
+    protected Map<T, Node<T, E>> cache;
     protected int capacity, total;
-    private final Node<T,E> head;
-    private final Node<T,E> tail;
 
     public LRULinkedListMapCacheService(int capacity) {
         cache = new HashMap<>();
@@ -26,9 +26,9 @@ public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
 
     @Override
     public E onRead(T key) {
-        Node<T,E> node = cache.get(key);
+        Node<T, E> node = cache.get(key);
 
-        if(node == null) {
+        if (node == null) {
             return null;
         }
 
@@ -39,9 +39,9 @@ public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
     @Override
     public void onPut(T key, E value) {
 
-        Node<T,E> node = cache.get(key);
-        if(node == null) {
-            Node<T,E> newNode = new Node<>();
+        Node<T, E> node = cache.get(key);
+        if (node == null) {
+            Node<T, E> newNode = new Node<>();
             newNode.key = key;
             newNode.value = value;
 
@@ -50,7 +50,7 @@ public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
 
             total++;
 
-            if(total > capacity) {
+            if (total > capacity) {
                 LRUItemEvictions();
             }
         } else {
@@ -62,38 +62,38 @@ public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
     @Override
     public void onDelete(T key) {
         if (cache.get(key) != null) {
-            Node<T,E> nodeToRemove = cache.get(key);
+            Node<T, E> nodeToRemove = cache.get(key);
             delete(nodeToRemove);
         }
     }
 
-    private void delete(Node<T,E> node){
+    private void delete(Node<T, E> node) {
         removeNode(node);
         cache.remove(node.key);
         total--;
     }
 
 
-    private void LRUItemEvictions(){
-        Node<T,E> tail = getLRUNode();
+    private void LRUItemEvictions() {
+        Node<T, E> tail = getLRUNode();
         delete(tail);
     }
 
-    private void reinsertNode(Node<T,E> node){
+    private void reinsertNode(Node<T, E> node) {
         removeNode(node);
         addNode(node);
     }
 
-    private void addNode(Node<T,E> node){
+    private void addNode(Node<T, E> node) {
         node.prev = head;
         node.next = head.next;
         head.next.prev = node;
         head.next = node;
     }
 
-    private void removeNode(Node<T,E> node){
-        Node<T,E> tmpPrev = node.prev;
-        Node<T,E> tmpNext = node.next;
+    private void removeNode(Node<T, E> node) {
+        Node<T, E> tmpPrev = node.prev;
+        Node<T, E> tmpNext = node.next;
 
         tmpPrev.next = tmpNext;
         tmpNext.prev = tmpPrev;
@@ -102,23 +102,24 @@ public class LRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
         node.prev = null;
     }
 
-    private Node<T,E> getLRUNode(){
+    private Node<T, E> getLRUNode() {
         return tail.prev;
-    }
-
-    static class Node<T,E> {
-        T key;
-        E value;
-        Node<T,E> next;
-        Node<T,E> prev;
-        @Override
-        public String toString() {
-            return value.toString();
-        }
     }
 
     @Override
     public String toString() {
         return cache.toString();
+    }
+
+    static class Node<T, E> {
+        T key;
+        E value;
+        Node<T, E> next;
+        Node<T, E> prev;
+
+        @Override
+        public String toString() {
+            return value.toString();
+        }
     }
 }

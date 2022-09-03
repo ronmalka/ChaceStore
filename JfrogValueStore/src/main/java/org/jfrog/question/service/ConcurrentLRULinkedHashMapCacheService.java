@@ -7,15 +7,15 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ConcurrentLRULinkedHashMapCacheService<T,E> extends LRULinkedHashMapCacheService<T,E>{
+public class ConcurrentLRULinkedHashMapCacheService<T, E> extends LRULinkedHashMapCacheService<T, E> {
 
     private final Lock writeLock;
     private final Lock readLock;
 
     public ConcurrentLRULinkedHashMapCacheService(int capacity) {
-        cache = Collections.synchronizedMap(new LinkedHashMap<T,E>(capacity, 0.75F, true){
+        cache = Collections.synchronizedMap(new LinkedHashMap<T, E>(capacity, 0.75F, true) {
             @Override
-            protected boolean removeEldestEntry(Map.Entry<T,E> eldest){
+            protected boolean removeEldestEntry(Map.Entry<T, E> eldest) {
                 return size() > capacity;
             }
         });

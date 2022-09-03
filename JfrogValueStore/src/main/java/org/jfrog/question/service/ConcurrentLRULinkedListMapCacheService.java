@@ -1,20 +1,18 @@
 package org.jfrog.question.service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ConcurrentLRULinkedListMapCacheService<T,E> implements CacheService<T,E> {
+public class ConcurrentLRULinkedListMapCacheService<T, E> implements CacheService<T, E> {
 
-    protected int capacity, total;
     private final ConcurrentLinkedQueue<T> queue;
-    private final ConcurrentHashMap<T,E> map;
+    private final ConcurrentHashMap<T, E> map;
     private final Lock writeLock;
     private final Lock readLock;
+    protected int capacity, total;
 
     public ConcurrentLRULinkedListMapCacheService(int capacity) {
         this.capacity = capacity;

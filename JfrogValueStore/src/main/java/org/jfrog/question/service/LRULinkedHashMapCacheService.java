@@ -3,13 +3,13 @@ package org.jfrog.question.service;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LRULinkedHashMapCacheService<T,E> implements CacheService<T,E> {
-    protected Map<T,E> cache;
+public class LRULinkedHashMapCacheService<T, E> implements CacheService<T, E> {
+    protected Map<T, E> cache;
 
     public LRULinkedHashMapCacheService(int capacity) {
-        cache = new LinkedHashMap<T,E>(capacity, 0.75F, true){
+        cache = new LinkedHashMap<T, E>(capacity, 0.75F, true) {
             @Override
-            protected boolean removeEldestEntry(Map.Entry<T,E> eldest){
+            protected boolean removeEldestEntry(Map.Entry<T, E> eldest) {
                 return size() > capacity;
             }
         };

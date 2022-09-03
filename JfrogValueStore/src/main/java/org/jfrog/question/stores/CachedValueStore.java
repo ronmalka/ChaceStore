@@ -5,6 +5,7 @@ import org.jfrog.question.service.CacheService;
 import org.jfrog.question.service.LRULinkedListMapCacheService;
 
 import java.util.List;
+
 public class CachedValueStore implements ValueStore {
 
     // a list of all available value stores. list order should be kept.
@@ -13,8 +14,9 @@ public class CachedValueStore implements ValueStore {
 
     /**
      * Constructor for the cache value store.
-     * @param valueStores        list of ordered value stores to operate on
-     * @param cacheService       cacheService to use with
+     *
+     * @param valueStores  list of ordered value stores to operate on
+     * @param cacheService cacheService to use with
      */
     public CachedValueStore(List<ValueStore> valueStores, CacheService<String, String> cacheService) {
         this.valueStores = valueStores;
@@ -23,9 +25,10 @@ public class CachedValueStore implements ValueStore {
 
     /**
      * Constructor for the cache value store.
-     * @param valueStores        list of ordered value stores to operate on
-     * @param maxCachedItems    number of maximum items the cache can hold
-     * choosing LRULinkedListMapCacheService as default CacheService implementation
+     *
+     * @param valueStores    list of ordered value stores to operate on
+     * @param maxCachedItems number of maximum items the cache can hold
+     *                       choosing LRULinkedListMapCacheService as default CacheService implementation
      */
     public CachedValueStore(List<ValueStore> valueStores, int maxCachedItems) {
         this.valueStores = valueStores;
@@ -65,9 +68,9 @@ public class CachedValueStore implements ValueStore {
     public void delete(String key) {
         cacheService.onDelete(key);
         valueStores
-        .stream()
-        .filter(store -> StringUtils.isNotBlank(store.read(key)))
-        .forEach(valueStore -> valueStore.delete(key));
+                .stream()
+                .filter(store -> StringUtils.isNotBlank(store.read(key)))
+                .forEach(valueStore -> valueStore.delete(key));
     }
 
     @Override
