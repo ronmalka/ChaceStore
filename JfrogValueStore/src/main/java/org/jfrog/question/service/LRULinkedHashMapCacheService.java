@@ -3,6 +3,10 @@ package org.jfrog.question.service;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * An implementation of CacheService that uses LRU methodology implemented with LinkedHashMap Java Object
+ */
+
 public class LRULinkedHashMapCacheService<T, E> implements CacheService<T, E> {
     protected Map<T, E> cache;
 
