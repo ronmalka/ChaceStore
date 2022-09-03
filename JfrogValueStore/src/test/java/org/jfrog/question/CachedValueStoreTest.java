@@ -132,8 +132,8 @@ class CachedValueStoreTest {
         cache.delete("2");
         cache.put("1", "d");
         cache.put("2", "e");
-
-        assertEquals("{1=d, 2=e}", cache.toString());
+        cache.read("3");
+        assertEquals("{2=e, 3=c}", cache.toString());
 
     }
 
@@ -153,7 +153,7 @@ class CachedValueStoreTest {
         cache.delete("2");
         cache.put("1", "d");
         cache.put("2", "e");
-
-        assertEquals("{1=d, 2=e}", cache.toString());
+        cache.read("3");
+        assertEquals("{2=e, 3=c}", cache.toString());
     }
 }
