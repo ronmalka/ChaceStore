@@ -106,6 +106,7 @@ class CachedValueStoreTest {
         assertNotNull(a);
 
         //in that case key "1" will return from the cache, because we returned it into the cache in the previous read
+        mapStore.delete("1");
         String b = cache.read("1");
         assertNotNull(b);
 
