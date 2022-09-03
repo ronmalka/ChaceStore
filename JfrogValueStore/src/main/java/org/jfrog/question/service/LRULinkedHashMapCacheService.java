@@ -19,9 +19,6 @@ public class LRULinkedHashMapCacheService<T, E> implements CacheService<T, E> {
         };
     }
 
-    public LRULinkedHashMapCacheService() {
-    }
-
     @Override
     public E onRead(T key) {
         return cache.get(key);
