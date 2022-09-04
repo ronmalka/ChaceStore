@@ -49,7 +49,11 @@ public class CachedValueStore implements ValueStore {
                     .findFirst()
                     .map(valueStore -> valueStore.read(key))
                     .orElse(null);
-            cacheService.onPut(key, value);
+
+            if (value != null) {
+                cacheService.onPut(key, value);
+            }
+
         }
         return value;
     }
