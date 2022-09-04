@@ -25,7 +25,8 @@ class CachedValueStoreTest {
     void testCache() {
         ValueStore[] stores = new ValueStore[]{new MapValueStore()};
         CachedValueStore cache = new CachedValueStore(Arrays.asList(stores), 5);
-        cache.put("a", "b");
+
+
         String a = cache.read("a");
         assertEquals("b", a);
         cache.delete("a");
